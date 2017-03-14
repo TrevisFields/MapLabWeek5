@@ -1,11 +1,18 @@
 #pragma once
+#include "Location.h"
+#include <stack>
+
 class Map
 {
 private:
-  Location *_currentLocation;
+  std::stack<Location *> _locationsVisited;
 public:
-  Map(std::string startingLocation);
+  Map(std::string startingLocationName);
   ~Map();
+  
+  Location * CurrentLocation = nullptr;
+  std::string GetPathBackToHome();
+  void Move(Location * newLocation);
   
 
 };

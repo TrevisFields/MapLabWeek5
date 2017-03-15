@@ -3,6 +3,7 @@
 Map::Map(std::string startingLocation)
 {
   CurrentLocation = new Location(startingLocation);
+  //Path.push(CurrentLocation);
 }
 
 Map::~Map()
@@ -18,7 +19,7 @@ void Map::Move(Location * newLocation)
 
 std::string Map::GetPathBackToHome()
 {
-  return "You are: ";
+  return "Hello traveler!\n";
 }
 
   //implement program to take string names and not just part of a name

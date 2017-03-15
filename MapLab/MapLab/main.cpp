@@ -31,7 +31,7 @@ int main()
 		cout << "0) Close Program" << endl;
 		
 		cin >> choice;
-		system("pause");//sh: pause: command not found
+		cin.get();//sh: pause: command not found
 		  //switch statements used for each choice given in the options menu
 		switch (choice)
 		{
@@ -55,7 +55,7 @@ int main()
 			 GoWest(map);
 			 break;
 			 case 6:
-			 system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
+			 //Does not clear the terminal in xcode/ "TERM environment variable not set."
 			 cout << map.GetPathBackToHome() << endl;
 			 break;
 			 
@@ -65,7 +65,7 @@ int main()
 		}
 	 }
   
-  system("pause");//sh: pause: command not found
+  cin.get();
   return 0;
 }
 

@@ -12,5 +12,5 @@ Location::~Location()
 
 std::string Location::DisplayLocationInfo()
 {
-  return "Location is " + _name + "\n";
+  return " " + _name + "\n";
 }

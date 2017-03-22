@@ -1,9 +1,13 @@
 #include "Map.h"
 
-Map::Map(std::string startingLocation)
+
+
+Map::Map(std:: string startLocationName)
 {
-  CurrentLocation = new Location(startingLocation);
-  //Path.push(CurrentLocation);
+  CurrentLocation = new Location(startLocationName, 0, 0);
+  std::string hash = "(0,0)";
+  _mapLookup[hash] = CurrentLocation;
+  
 }
 
 Map::~Map()
@@ -17,10 +21,13 @@ void Map::Move(Location * newLocation)
   CurrentLocation = newLocation;
 }
 
-std::string Map::GetPathBackToHome()
+Location * Map::LookupLocationOnMap(int x, int y)
 {
-  return "Hello traveler!\n";
+  std:: string hash = "(" + std::to_string(x) + "," + std::to_string(y) + ")";
+  return _mapLookup[hash];
 }
 
-  //implement program to take string names and not just part of a name
-  //get path back home to display the entire path
+std:: string Map::GetPathBackToHome()
+{
+  return "TODO: IMPLEMENT THIS";
+}

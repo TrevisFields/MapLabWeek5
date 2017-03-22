@@ -1,5 +1,4 @@
 #include "Map.h"
-#include <stdlib.h>
 #include <iostream>
 using namespace std;
 
@@ -12,17 +11,14 @@ void GoWest(Map &map);
   //main function
 int main()
 {
-  Map map = Map("Home");
+  auto map = Map("Home");
   
   int choice = -1;
   //while loop
   while (choice != 0)
 	 {
 		system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
-		cout << endl;
-		cout << endl;
-		cout << "Choose an option." << endl;
-		cout << "1) Get current location." << endl;
+		cout << "1) Display current location." << endl;
 		cout << "2) Go North." << endl;
 		cout << "3) Go South." << endl;
 		cout << "4) Go East." << endl;
@@ -31,7 +27,7 @@ int main()
 		cout << "0) Close Program" << endl;
 		
 		cin >> choice;
-		cin.get();//sh: pause: command not found
+		
 		  //switch statements used for each choice given in the options menu
 		switch (choice)
 		{
@@ -60,113 +56,130 @@ int main()
 			 break;
 			 
 			 default:
-			 cout << "Enter a valid option";
+			 cout << "Enter a valid option\n";
 			 break;
 		}
+		cin.get();
 	 }
   
-  cin.get();
   return 0;
 }
 
-  //Void functions declared outside the scope of the main function of the program
-/*******************************************************************/
-  //void function for Go North
 void GoNorth(Map &map)
 {
   auto newLocation = map.CurrentLocation -> North;
+  int currentX = map.CurrentLocation -> getX();
+  int currentY = map.CurrentLocation -> getY();
   if(newLocation == nullptr)
 	 {
-		system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
-		cout <<"You have not been here before, enter a name for this discovery: ";
+		int newX = currentX;
+		int newY = currentY + 1;
+		auto existing = map.LookupLocationOnMap(newX, newY);
+		
+		system("cls");
+		system("clear");
+		cout << "You haven't been here before, enter a name for this place: ";
 		string name;
 		cin >> name;
-		newLocation = new Location(name);
-		cout << "Welcome traveler, you are now entering: " + name << endl;
+		newLocation = new Location(name, newX, newY);
+		cout << "This place is now called: " + name << endl;
 	 }
   
   else
 	 {
-		cout << "\"Nani wan\" - Welcome!  : " + newLocation -> DisplayLocationInfo();
+		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
-  
   newLocation -> South = map.CurrentLocation;
   map.Move(newLocation);
   return;
 }
 
-  //void function for GoSouth
+
 void GoSouth(Map &map)
 {
-  auto newLocation = map.CurrentLocation -> South;
+  auto newLocation = map.CurrentLocation -> North;
+  int currentX = map.CurrentLocation -> getX();
+  int currentY = map.CurrentLocation -> getY();
   if(newLocation == nullptr)
 	 {
-		system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
-		cout <<"You have not been here before, enter a name for this discovery: ";
+		int newX = currentX;
+		int newY = currentY - 1;
+		auto existing = map.LookupLocationOnMap(newX, newY);
+		
+		system("cls");
+		system("clear");
+		cout << "You haven't been here before, enter a name for this place: ";
 		string name;
 		cin >> name;
-		newLocation = new Location(name);
-		cout << "You are a foreiner in a distant land: " + name << endl;
+		newLocation = new Location(name, newX, newY);
+		cout << "This place is now called: " + name << endl;
 	 }
   
   else
 	 {
-		cout << "May your weary travels become rested here once again: " + newLocation -> DisplayLocationInfo();
+		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
-  
   newLocation -> North = map.CurrentLocation;
   map.Move(newLocation);
   return;
-
 }
 
-  //void function for GoWest
+
 void GoWest(Map &map)
 {
-  auto newLocation = map.CurrentLocation -> West;
+  auto newLocation = map.CurrentLocation -> North;
+  int currentX = map.CurrentLocation -> getX();
+  int currentY = map.CurrentLocation -> getY();
   if(newLocation == nullptr)
 	 {
-		system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
-		cout <<"You have not been here before, enter a name for this discovery: ";
+		int newX = currentX - 1;
+		int newY = currentY;
+		auto existing = map.LookupLocationOnMap(newX, newY);
+		
+		system("cls");
+		system("clear");
+		cout << "You haven't been here before, enter a name for this place: ";
 		string name;
 		cin >> name;
-		newLocation = new Location(name);
-		cout << "Aloha land dweller: " + name << endl;
+		newLocation = new Location(name, newX, newY);
+		cout << "This place is now called: " + name << endl;
 	 }
   
   else
 	 {
-		cout << "Aloha again: " + newLocation -> DisplayLocationInfo();
+		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
-  
   newLocation -> East = map.CurrentLocation;
   map.Move(newLocation);
   return;
- 
 }
 
-  //void function for GoEast
+
 void GoEast(Map &map)
 {
-  auto newLocation = map.CurrentLocation -> East;
+  auto newLocation = map.CurrentLocation -> North;
+  int currentX = map.CurrentLocation -> getX();
+  int currentY = map.CurrentLocation -> getY();
   if(newLocation == nullptr)
 	 {
-		system("clear");//Does not clear the terminal in xcode/ "TERM environment variable not set."
-		cout <<"You have not been here before, enter a name for this discovery: ";
+		int newX = currentX + 1;
+		int newY = currentY;
+		auto existing = map.LookupLocationOnMap(newX, newY);
+		
+		system("cls");
+		system("clear");
+		cout << "You haven't been here before, enter a name for this place: ";
 		string name;
 		cin >> name;
-		newLocation = new Location(name);
-		cout << "You must be some city folk: " + name << endl;
+		newLocation = new Location(name, newX, newY);
+		cout << "This place is now called: " + name << endl;
 	 }
   
   else
 	 {
-		cout << "We welcome your return to: " + newLocation -> DisplayLocationInfo();
+		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
-  
   newLocation -> West = map.CurrentLocation;
   map.Move(newLocation);
   return;
-
 }
-/**********************************************************************/

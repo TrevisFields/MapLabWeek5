@@ -4,19 +4,18 @@ using namespace std;
 
 /*
  ERRORS FOUND SO FAR:
- every time i try to go from the starting location of HOME (0,0) the default location is HOME (0,0) but when i change to a new location and try to go back I end up creating a new location name for the area in which i came from. There seems to be a problem with the code in that part of the programming and at the moment i am not able to figure out how to fix the problem. there arent really any break points that are helping me get to the conclusion of the program.
- Another problem is that i start at HOME (0,0) and i can move to another location and set the name, when i try to go back to the previous location i have to reset the name. After reseting the name i am no longer able to go further in the same location (almost like a broken loop that goes back and forth between the location i set and the first location i made.) the HOME location is always being renamed when i go back to it.
+ every time i try to go from the starting location of HOME (0,0) the default location is HOME (0,0) but when i change to a new location and try to go back I end up creating a new location name for the area in which i came from. There seems to be a problem with the code in that part of the programming and at the moment i am not able to figure out how to fix the problem. there arent really any break points that are helping me get to the conclusion of the program. - - - CORRECTED
+ Another problem is that i start at HOME (0,0) and i can move to another location and set the name, when i try to go back to the previous location i have to reset the name. After reseting the name i am no longer able to go further in the same location (almost like a broken loop that goes back and forth between the location i set and the first location i made.) the HOME location is always being renamed when i go back to it. - - - CORRECTED
  
- After a while the problem was that the direction i was going was in a loop for each of the directions i wanted to go. i was going north in each of the four directions instead of going to the same location that was originally meant for each path. 
+ After a while the problem was that the direction i was going was in a loop for each of the directions i wanted to go. i was going north in each of the four directions instead of going to the same location that was originally meant for each path. - - - [UNDER REVIEW]
  
- code breaks when you go in a square path back to the original location.
+ code breaks when you go in a square path back to the original location. - - - [UNDER REVIEW]
  
  
  
  now i need to record all of the paths taken and send back each one to get my path back home
- (is it suppose to be one to one or a whole bunch of paths that lead back to HOME???)
+ (is it suppose to be one to one or a whole bunch of paths that lead back to HOME???) - - - [IN PROGRESS]
  
- EXTRA credit id to put myself in the location that is needed
  */
 void GoNorth(Map &map);
 void GoSouth(Map &map);
@@ -67,7 +66,7 @@ int main()
 			 break;
 			 case 6:
 			 
-			 cout << map.GetPathBackToHome() << endl;
+			 cout << "To go back home: " << map.GetPathBackToHome() << endl;
 			 break;
 			 
 			 case 0:
@@ -88,18 +87,21 @@ void GoNorth(Map &map)
   auto newLocation = map.CurrentLocation -> North;
   int currentX = map.CurrentLocation -> getX();
   int currentY = map.CurrentLocation -> getY();
+  
+  string name = "";
   if(newLocation == nullptr)
 	 {
 		int newX = currentX;
 		int newY = currentY + 1;
 		auto existing = map.LookupLocationOnMap(newX, newY);
 		
+		
 		if (existing == nullptr)
 		{
 		  system("cls");
 		  system("clear");
 		  cout << "You haven't been here before, enter a name for this place: ";
-		  string name;
+		  
 		  cin >> name;
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
@@ -118,6 +120,8 @@ void GoNorth(Map &map)
 		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
   newLocation -> South = map.CurrentLocation;
+  
+  map.setPathBackToHome("South");
   map.Move(newLocation);
   return;
 }
@@ -128,6 +132,8 @@ void GoSouth(Map &map)
   auto newLocation = map.CurrentLocation -> South;
   int currentX = map.CurrentLocation -> getX();
   int currentY = map.CurrentLocation -> getY();
+  
+  string name = "";
   if(newLocation == nullptr)
 	 {
 		int newX = currentX;
@@ -139,7 +145,7 @@ void GoSouth(Map &map)
 		system("cls");
 		system("clear");
 		cout << "You haven't been here before, enter a name for this place: ";
-		string name;
+		
 		cin >> name;
 		newLocation = new Location(name, newX, newY);
 		cout << "This place is now called: " + name << endl;
@@ -156,6 +162,8 @@ void GoSouth(Map &map)
 		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
   newLocation -> North = map.CurrentLocation;
+  map.setPathBackToHome("North");
+
   map.Move(newLocation);
   return;
 }
@@ -166,6 +174,8 @@ void GoWest(Map &map)
   auto newLocation = map.CurrentLocation -> West;
   int currentX = map.CurrentLocation -> getX();
   int currentY = map.CurrentLocation -> getY();
+  
+  string name = "";
   if(newLocation == nullptr)
 	 {
 		int newX = currentX - 1;
@@ -177,12 +187,15 @@ void GoWest(Map &map)
 		  system("cls");
 		  system("clear");
 		  cout << "You haven't been here before, enter a name for this place: ";
-		  string name;
+		  
 		  cin >> name;
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
 	 }
-		
+		else if (existing == map.LookupLocationOnMap(0, 0))
+		{
+			cout << "You are HOME.\n";
+		}
 		else
 		{
 		  
@@ -196,6 +209,8 @@ void GoWest(Map &map)
 		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
   newLocation -> East = map.CurrentLocation;
+  map.setPathBackToHome("East");
+
   map.Move(newLocation);
   return;
 }
@@ -206,6 +221,8 @@ void GoEast(Map &map)
   auto newLocation = map.CurrentLocation -> East;
   int currentX = map.CurrentLocation -> getX();
   int currentY = map.CurrentLocation -> getY();
+  
+  string name = "";
   if(newLocation == nullptr)
 	 {
 		int newX = currentX + 1;
@@ -216,7 +233,7 @@ void GoEast(Map &map)
 		  system("cls");
 		  system("clear");
 		  cout << "You haven't been here before, enter a name for this place: ";
-		  string name;
+		  
 		  cin >> name;
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
@@ -234,6 +251,8 @@ void GoEast(Map &map)
 		cout << "You are at: " + newLocation -> DisplayLocationInfo();
 	 }
   newLocation -> West = map.CurrentLocation;
+  map.setPathBackToHome("West");
+
   map.Move(newLocation);
   return;
 }

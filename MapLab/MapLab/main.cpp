@@ -9,6 +9,9 @@ using namespace std;
  
  After a while the problem was that the direction i was going was in a loop for each of the directions i wanted to go. i was going north in each of the four directions instead of going to the same location that was originally meant for each path. 
  
+ code breaks when you go in a square path back to the original location.
+ 
+ 
  
  now i need to record all of the paths taken and send back each one to get my path back home
  (is it suppose to be one to one or a whole bunch of paths that lead back to HOME???)
@@ -101,10 +104,10 @@ void GoNorth(Map &map)
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
 	 }
-		  //work on this portion in order to get the desired results
+		
 		else
 		{
-		  //map.CurrentLocation = existing;
+		  
 		  cout << " You've been here before." << existing -> DisplayLocationInfo();
 		}
 
@@ -141,10 +144,10 @@ void GoSouth(Map &map)
 		newLocation = new Location(name, newX, newY);
 		cout << "This place is now called: " + name << endl;
 	 }
-		  //work on this portion in order to get the desired results
+		
 		else
 		{
-		  //map.CurrentLocation = existing;
+		  
 		  cout << " You've been here before." << existing -> DisplayLocationInfo();
 		}
   }
@@ -179,10 +182,10 @@ void GoWest(Map &map)
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
 	 }
-		  //work on this portion in order to get the desired results
+		
 		else
 		{
-		  //map.CurrentLocation = existing;
+		  
 		  cout << " You've been here before." << existing -> DisplayLocationInfo();
 		}
 
@@ -218,10 +221,10 @@ void GoEast(Map &map)
 		  newLocation = new Location(name, newX, newY);
 		  cout << "This place is now called: " + name << endl;
 	 }
-		  //work on this portion in order to get the desired results
+		
 		else
 		{
-		  //map.CurrentLocation = existing;
+		  
 		  cout << " You've been here before." << existing -> DisplayLocationInfo();
 		}
 	 }

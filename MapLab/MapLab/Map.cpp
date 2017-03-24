@@ -29,5 +29,5 @@ Location * Map::LookupLocationOnMap(int x, int y)
 
 std:: string Map::GetPathBackToHome()
 {
-  return "TODO: IMPLEMENT THIS";
+  return "test";
 }
